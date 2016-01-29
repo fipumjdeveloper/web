@@ -15,3 +15,5 @@ Ex-Developer - Mardiansyah Bahri & Team (Syukri & Rachmat)
 ## Copyright and License
 
 Copyright 2016 Ex-Developer
+
+## End of License
