@@ -22,7 +22,7 @@ $_SESSION['chance'] = 3;
 				interval: 0,
 				pause: "hover",
 			});
-			// Headline news text rotator
+			// text rotator
 			$(".headlines .text-rotator").show().ticker({ rate: 50, delay: 5000 }).trigger("play");
 			$('#secret_login').submit(function(e){
 				var data_key = $('#secret_key').val();
