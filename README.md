@@ -14,6 +14,6 @@ Ex-Developer - Mardiansyah Bahri & Team (Syukri & Rachmat) with our Mentor Mr As
 
 ## Copyright and License
 
-Copyright 2016 Ex-Developer - FIP UMJ
+Copyright 2015-2016 Ex-Developer - FIP UMJ
 
 ## End of License
