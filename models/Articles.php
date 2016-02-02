@@ -17,6 +17,7 @@
  * @property integer $id_creator
  *
  * The followings are the available model relations:
+ * @property Category $idCategory
  * @property Users $idCreator
  * @property ArticlesTranslation[] $articlesTranslations
  * @property Comment[] $comments
@@ -65,6 +66,7 @@ class Articles extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'idCategory' => array(self::BELONGS_TO, 'Category', 'id_category'),
 			'idCreator' => array(self::BELONGS_TO, 'Users', 'id_creator'),
 			'articlesTranslations' => array(self::HAS_MANY, 'ArticlesTranslation', 'id_articles'),
 			'comments' => array(self::HAS_MANY, 'Comment', 'id_articles'),
@@ -100,7 +102,9 @@ class Articles extends CActiveRecord
 			'status' => 'Status',
 			'date_created' => 'Date Created',
 			'id_category' => 'Id Category',
+			'idCategory.name' => 'Category',
 			'id_creator' => 'Id Creator',
+			'idCreator.firstname' => 'Creator',
 		);
 	}
 

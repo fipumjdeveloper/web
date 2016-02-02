@@ -63,7 +63,7 @@ class ArticlesTranslationController extends Controller
 	public function actionCreate($id)
 	{
 		$model=new ArticlesTranslation;
-		
+		$model->id_articles = $id;
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
@@ -85,7 +85,9 @@ class ArticlesTranslationController extends Controller
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_articles_translation));
 		}
-
+		
+		$model->param = null;
+		$model->param = $this->availableLangCreate($id);		
 		$this->render('create',array(
 			'model'=>$model,
 		));
@@ -98,7 +100,7 @@ class ArticlesTranslationController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		$model=$this->loadModel($id);
+		$model=$this->loadModelArticleTranslation($id);
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
@@ -109,10 +111,22 @@ class ArticlesTranslationController extends Controller
 			if($model->cover == NULL)
 				$model->cover = $this->loadModel($id)->cover;
 
+			$model->file = CUploadedFile::getInstance($model, 'cover');
+			if($model->file !== null){
+				$ext = strtolower($model->file->getExtensionName());
+	            $dir = Yii::getPathOfAlias('webroot') . Yii::app()->params['upload_images'];
+	            $fileName = sha1($model->file->getName().rand(1, 9999999999)).'.'.$ext;
+				
+				$model->cover = $fileName;
+				
+				$model->file->saveAs($dir.$fileName);
+			}
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id_articles_translation));
 		}
 
+		$model->param = null;	
+		$model->param = $this->availableLangUpdate($model->id_articles,$model->id_language);	
 		$this->render('update',array(
 			'model'=>$model,
 		));
@@ -176,6 +190,14 @@ class ArticlesTranslationController extends Controller
 		return $model;
 	}
 
+	public function loadModelArticleTranslation($id)
+	{
+		$model=ArticlesTranslation::model()->findByPK($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
 	/**
 	 * Performs the AJAX validation.
 	 * @param ArticlesTranslation $model the model to be validated
@@ -186,6 +208,47 @@ class ArticlesTranslationController extends Controller
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
+		}
+	}
+
+	public function getExistLang($id)
+	{
+		$idLang=null;
+		$model=ArticlesTranslation::model()->findAll(array('condition'=> 'id_articles ='.$id));
+		foreach ($model as $val) {
+			$idLang[]= $val["id_language"];
+		}
+		return $idLang;
+	}
+
+	public function availableLangCreate($id)
+	{
+			if($this->getExistLang($id) != null)
+			{
+				$lang=null;
+				foreach($this->getExistLang($id) as $val)
+				{				
+					$lang .= $val.",";
+				}
+				
+				$lang = rtrim($lang,",");
+				return array('condition'=>'id_language NOT IN ('.$lang.')');
+			}
+	}
+
+	public function availableLangUpdate($id,$currentIdLang)
+	{
+		if(count($this->getExistLang($id)) != 1)
+		{
+			$id_Lang=null;
+			foreach($this->getExistLang($id) as $val)
+			{
+				if ($val != $currentIdLang)
+					$id_Lang .= $val.",";
+			}
+			
+			$id_Lang = rtrim($id_Lang,",");
+			return array('condition'=>'id_language NOT IN ('.$id_Lang.')');	
 		}
 	}
 }

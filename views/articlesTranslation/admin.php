@@ -8,8 +8,8 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ArticlesTranslation', 'url'=>array('index')),
-	array('label'=>'Create ArticlesTranslation', 'url'=>array('create','id'=>$model->id_articles)),
+	array('label'=>'List Articles', 'url'=>array('articles/admin')),
+	array('label'=>'Create Articles Translation', 'url'=>array('create','id'=>$model->id_articles)),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -67,7 +67,26 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id_creator',			
 		*/
 		array(
+			'header'=>'Action',
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}',
+			'buttons'=>array(
+				'view'=>array(
+					'label'=>'View ',
+					'options'=>array(
+						'title' => 'View Translations',
+						'visible'=>false
+					),
+					'url'=>'Yii::app()->createUrl("articlesTranslation/view", array("id"=>$data->id_articles_translation))'
+				),
+				'update'=>array(
+					'label'=>'Edit',
+					'options'=>array(
+						'title' => 'Change Translations'
+					),
+					'url'=>'Yii::app()->createUrl("articlesTranslation/update", array("id"=>$data->id_articles_translation))'
+				),
+			),
 		),
 	),
 )); ?>

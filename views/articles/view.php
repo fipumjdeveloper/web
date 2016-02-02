@@ -21,9 +21,12 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id_articles',
 		'title',
-		'cover',
+		array(
+			'name'=>'cover',
+			'type'=>'raw',
+			'value'=>CHtml::image(Yii::app()->baseUrl . "/" . Yii::app()->params["upload_images_gridview"] . $model->cover,'alt',array('width'=>100,'height'=>100))
+				),
 		'caption',
 		'short_description',
 		'tags',
@@ -33,9 +36,13 @@ $this->menu=array(
 			'type'=>'html',
 			'value'=>$model->content
 		),
-		'status',
+		array(
+			'label'=> 'status',
+			'type'=>'raw',
+			'value'=> $model->status ? CHtml::link('Active','',array('class'=>'badge btn-success')) : CHtml::link('Inactive',array('#'),array('class'=>'badge btn-danger')),	
+			),
 		'date_created',
-		'id_category',
-		'id_creator',
+		'idCategory.name',
+		'idCreator.firstname',
 	),
 )); ?>

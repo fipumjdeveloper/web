@@ -8,11 +8,11 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'List ArticlesTranslation', 'url'=>array('index')),
-	array('label'=>'Manage ArticlesTranslation', 'url'=>array('articles/admin')),
+	array('label'=>'List Articles', 'url'=>array('articles/admin')),
+	array('label'=>'Manage Articles Translation', 'url'=>array('admin','id'=>$model->id_articles)),
 );
 ?>
 
-<h1>Create ArticlesTranslation</h1>
+<h1>Create Articles Translation : <?php echo $model->idArticles->title; ?></h1>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

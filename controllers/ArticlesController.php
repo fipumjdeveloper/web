@@ -133,11 +133,14 @@ class ArticlesController extends Controller
 
 		if(isset($_POST['Articles']))
 		{
+
 			$model->attributes=$_POST['Articles'];
-			$model->file = CUploadedFile::getInstance($model, 'cover');
+			if($model->cover == NULL)
+				$model->cover = $this->loadModel($id)->cover;
+			$model->file = CUploadedFile::getInstance($model, 'cover');	
 			if($model->file !== null){
 				$ext = strtolower($model->file->getExtensionName());
-	            $dir = Yii::app()->params['dir_upload'];
+	            $dir = Yii::getPathOfAlias('webroot') . Yii::app()->params['upload_images'];
 	            $fileName = sha1($model->file->getName().rand(1, 9999999999)).'.'.$ext;
 				
 				$model->cover = $fileName;

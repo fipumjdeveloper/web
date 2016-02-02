@@ -89,8 +89,7 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'idLanguage.name'); ?>
-		<?php //echo $form->textField($model,'id_language'); ?>
-		<?php echo $form->dropDownList($model,'id_language',CHtml::listData(Language::model()->findAll(), 'id_language', 'name')); ?>
+		<?php echo $form->dropDownList($model,'id_language',CHtml::listData(Language::model()->findAll($model->param), 'id_language', 'name')); ?>
 		<?php echo $form->error($model,'id_language'); ?>
 	</div>
 	<div class="row buttons">

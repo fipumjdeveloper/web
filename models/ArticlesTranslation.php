@@ -28,6 +28,7 @@
 class ArticlesTranslation extends CActiveRecord
 {
 	public $file;
+	public $param;
 	/**
 	 * @return string the associated database table name
 	 */
@@ -87,15 +88,17 @@ class ArticlesTranslation extends CActiveRecord
 			'short_description' => 'Short Description',
 			'tags' => 'Tags',
 			'content' => 'Content',
-			'is_viewed' => 'Is Viewed',
-			'is_shared' => 'Is Shared',
-			'is_liked' => 'Is Liked',
+			'is_viewed' => 'Viewed',
+			'is_shared' => 'Shared',
+			'is_liked' => 'Liked',
 			'date_created' => 'Date Created',
 			'date_updated' => 'Date Updated',
 			'id_articles' => 'Id Articles',
+			'idArticles.title' =>'Article Name',
 			'id_language' => 'Id Language',
 			'idLanguage.name' => 'Language',
 			'id_creator' => 'Id Creator',
+			'param'=>'',
 		);
 	}
 

@@ -7,8 +7,7 @@ $this->breadcrumbs=array(
 );
 
 $this->menu=array(
-	array('label'=>'Create ArticlesTranslation', 'url'=>array('create')),
-	array('label'=>'Manage ArticlesTranslation', 'url'=>array('admin')),
+	array('label'=>'Manage Articles', 'url'=>array('articles/admin')),
 );
 ?>
 

@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Articles</h1>
 
-<p>
+<p>	
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be donee.
 </p>
@@ -56,6 +56,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'caption',
 		'short_description',
 		'tags',
+		array(
+			'name'=>'status',
+			'type'=>'raw',
+			'filter'=>array('1'=>'Active', '0'=>'Inactive'),
+			'value'=>'$data->status ? CHtml::label("Active", "", array("class"=>"badge btn-success label-gridview")) : CHtml::label("Inactive", "", array("class"=>"badge btn-danger label-gridview"))',
+		),
 		/*
 		'content',
 		'status',
@@ -66,31 +72,17 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		array(
 			'header'=>'Translation',
 			'class'=>'CButtonColumn',
-			'template'=>'{view}{update}{delete}',
+			'template'=>'{view}',
 			'buttons'=>array(
 				'view'=>array(
 					'label'=>'View ',
 					'options'=>array(
-						'title' => 'View Translations'
+						'title' => 'View Translations',
+						'visible'=>false
 					),
 					'url'=>'Yii::app()->createUrl("articlesTranslation/admin", array("id"=>$data->id_articles))'
 				),
-				'update'=>array(
-					'label'=>'Edit',
-					'options'=>array(
-						'title' => 'Change Translations'
-					),
-					'url'=>'Yii::app()->createUrl("articlesTranslation/update", array("id"=>$data->id_articles))'
-				),
-				'delete'=>array(
-					'label'=>'Delete',
-					'options'=>array(
-						'title' => 'Delete Translations'
-					),
-					'url'=>'Yii::app()->createUrl("articlesTranslation/deleteTranslation", array("id"=>$data->id_articles))',
-					'click'=>'true'
-				)
-			)
+			),
 		),
 		array(
 			'header'=>'Operation',
